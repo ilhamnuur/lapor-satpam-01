@@ -16,30 +16,26 @@ async function testDatabaseConnection() {
     console.log("Current time:", result.rows[0].current_time);
     console.log("Database version:", result.rows[0].db_version);
     
-    // Test if satpam table exists
-    try {
-      const tableCheck = await pool.query(`
-        SELECT EXISTS (
-          SELECT FROM information_schema.tables 
-          WHERE table_name = 'satpam'
-        ) as table_exists
-      `);
-      
-      if (tableCheck.rows[0].table_exists) {
-        console.log("✅ 'satpam' table exists");
+    // Test if required tables exist
+    const tablesToCheck = ['satpam', 'input_kegiatan'];
+    
+    for (const tableName of tablesToCheck) {
+      try {
+        const tableCheck = await pool.query(`
+          SELECT EXISTS (
+            SELECT FROM information_schema.tables
+            WHERE table_name = $1
+          ) as table_exists
+        `, [tableName]);
         
-        // Check if there are any users
-        const userCount = await pool.query('SELECT COUNT(*) as count FROM satpam');
-        console.log(`📊 Total satpam users: ${userCount.rows[0].count}`);
-        
-        if (parseInt(userCount.rows[0].count) === 0) {
-          console.log("⚠️  No users found in satpam table. You may need to create some test users.");
+        if (tableCheck.rows[0].table_exists) {
+          console.log(`✅ '${tableName}' table exists`);
+        } else {
+          console.log(`❌ '${tableName}' table does not exist. You need to create it.`);
         }
-      } else {
-        console.log("❌ 'satpam' table does not exist. You need to create it.");
+      } catch (tableError) {
+        console.error(`❌ Error checking ${tableName} table:`, tableError.message);
       }
-    } catch (tableError) {
-      console.error("❌ Error checking satpam table:", tableError.message);
     }
     
   } catch (error) {
