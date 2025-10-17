@@ -33,7 +33,7 @@ app.use("/auth", authRoutes);
 #### ✅ Enhanced CORS configuration
 ```javascript
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
+  origin: ['http://10.10.10.195:5173', 'http://10.10.10.195:3000', 'http://127.0.0.1:5173'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -143,8 +143,8 @@ node test_connection_flow.js
 
 ## Expected Results
 
-1. **Backend server** starts on `http://localhost:3000`
-2. **Frontend** runs on `http://localhost:5173`
+1. **Backend server** starts on `http://10.10.10.195:3000`
+2. **Frontend** runs on `http://10.10.10.195:5173`
 3. **CORS** allows cross-origin requests between frontend and backend
 4. **Authentication** works with JWT tokens
 5. **Protected routes** require valid authentication

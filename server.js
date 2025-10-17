@@ -31,5 +31,5 @@ app.post("/api/test-attendance", (req, res) => {
 app.get("/", (req, res) => res.send("API Satpam aktif 🚀"));
 
 app.listen(process.env.PORT || 3000, () => 
-  console.log(`Test endpoint running on http://localhost:3000`)
+  console.log(`Test endpoint running on http://10.10.10.195:3000`)
 );

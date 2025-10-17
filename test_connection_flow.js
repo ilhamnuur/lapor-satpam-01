@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://10.10.10.195:3000";
 let authToken = null;
 let testUserId = null;
 
@@ -45,7 +45,7 @@ async function testConnectionFlow() {
     console.log("\n4️⃣ Testing CORS headers...");
     const corsResponse = await axios.options(`${API_BASE_URL}/auth/login`, {
       headers: {
-        "Origin": "http://localhost:5173",
+        "Origin": "http://10.10.10.195:5173",
         "Access-Control-Request-Method": "POST",
         "Access-Control-Request-Headers": "Content-Type"
       }

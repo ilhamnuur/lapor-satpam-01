@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000", // backend
+  baseURL: "http://10.10.10.195:3000", // backend
 });
 
 // middleware tambahkan token JWT otomatis
